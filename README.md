@@ -1,14 +1,9 @@
 # Piano Rain
 
 An offline Android app that plays piano recordings with falling notes and a live keyboard.
-Import piano audio, wait for the local transcription (**Ready**), then open it in the player.
+Import piano audio, wait for the local transcription to finish, then open it in the player. No server or account required.
 
 ![Piano Rain playing the Chopin demo](docs/media/player.jpg)
-
-Bundled demos:
-
-- Bach’s gentle *Goldberg Variations — Aria* (26.5 seconds, Kimiko Ishizaka, CC0)
-- Chopin’s chord-heavy *Prelude in C minor, Op. 28 No. 20* (30 seconds, Ivan Ilic, CC BY 3.0)
 
 ## Features
 
@@ -29,7 +24,10 @@ See [Development](#development) for possible improvements to transcription accur
 
 https://github.com/user-attachments/assets/6a2053d2-c200-46ed-a6c2-51e9ec812c8e
 
-[Watch the demo with sound (30 seconds)](docs/media/piano-rain-demo-sound.mp4): Bach’s Aria and Chopin’s Prelude, with approximate transcriptions. Recordings by Kimiko Ishizaka (CC0) and Ivan Ilic (CC BY 3.0); see [demo credits and edits](android/app/src/main/assets/licenses/DEMO.txt).
+Bundled demos:
+
+- Bach’s gentle *Goldberg Variations — Aria* (26.5 seconds, Kimiko Ishizaka, CC0)
+- Chopin’s chord-heavy *Prelude in C minor, Op. 28 No. 20* (30 seconds, Ivan Ilic, CC BY 3.0)
 
 ## Built with
 
@@ -52,7 +50,7 @@ fi
 ```
 
 Keep the same debug key for APK updates. Do not commit it or `local.properties`.
-The APK is `android/app/build/outputs/apk/debug/app-debug.apk`; application ID is `com.pianorain`.
+The APK is `android/app/build/outputs/apk/debug/app-debug.apk`; the application ID is `com.pianorain`.
 
 ## Development
 
