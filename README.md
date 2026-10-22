@@ -24,13 +24,17 @@ Imports support mono/stereo audio at 8–96 kHz, up to 10 minutes / 100 MB. M4A/
 PianoRain uses Kong/ByteDance's **Note_pedal** model, exported from `piano_transcription_inference` 0.0.6 to ONNX opset 17 with the original float32 weights.
 Inference runs offline on the CPU through ONNX Runtime Android 1.23.2. See the [model details and attribution](android/app/src/main/assets/models/README.md).
 
-The model is intended for solo piano, and we have not tested it with other instruments or ensemble recordings. Its transcriptions are approximate. It can be a useful tool for pianists, but beginners should be aware of noise and ghost notes (notes detected even though they were not played).
+The model is intended for solo piano, and we have not tested it with other instruments or ensemble recordings. Its transcriptions are approximate. It can be a useful tool for pianists, but beginners should be aware of noise and 'ghost notes'.
 See [Development](#development) for possible improvements to transcription accuracy.
+
+[![Watch the Piano Rain demo with sound](docs/media/demo-preview.jpg)](docs/media/piano-rain-demo-sound.mp4)
+
+[Watch the demo with sound (30 seconds)](docs/media/piano-rain-demo-sound.mp4): Bach’s Aria and Chopin’s Prelude, with approximate transcriptions. Recordings by Kimiko Ishizaka (CC0) and Ivan Ilic (CC BY 3.0); see [demo credits and edits](android/app/src/main/assets/licenses/DEMO.txt).
 
 ## Built with
 
 Kotlin, Jetpack Compose, Media3 ExoPlayer, Android MediaCodec and ONNX Runtime.
-A single app module handles the library, transcription and playback. The interface uses a fixed plum/lilac/rose theme.
+A single app module handles the library, transcription and playback.
 
 ## Build
 
