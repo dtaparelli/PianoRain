@@ -1,0 +1,56 @@
+Piano transcription model and adapted implementation
+
+Model creator: Qiuqiang Kong.
+Title: High-resolution Piano Transcription with Pedals by Regressing Onsets and Offsets Times.
+Source: https://zenodo.org/records/4034264
+DOI: https://doi.org/10.5281/zenodo.4034264
+Original checkpoint: CRNN_note_F1=0.9677_pedal_F1=0.9186.pth
+Zenodo checkpoint checksum: md5:22b961b77c1878239fec963362097045
+License: Creative Commons Attribution 4.0 International (CC BY 4.0).
+https://creativecommons.org/licenses/by/4.0/
+Full legal text is included in CC-BY-4.0.txt.
+
+PianoRain converts the original float32 Note_pedal model to ONNX opset 17,
+including the spectral frontend, without retraining or quantization.
+Exported model SHA-256: 99418f7e760edd759d0cbf46c001c97bedf56dae621667376e1ba8a42a78fec4
+Exported size: 154214211 bytes.
+This conversion and integration do not imply endorsement by the model authors.
+The model is separately licensed; PianoRain's Apache license does not replace CC BY.
+
+Paper authors: Qiuqiang Kong, Bochen Li, Xuchen Song, Yuan Wan, Yuxuan Wang.
+Paper: https://arxiv.org/abs/2010.01815
+Training implementation: https://github.com/bytedance/piano_transcription
+Its README declares Apache 2.0. Full Apache terms are included in PIANORAIN.txt.
+
+Inference and regression/peak postprocessing reference:
+Qiuqiang Kong, piano_transcription_inference 0.0.6
+https://github.com/qiuqiangkong/piano_transcription_inference
+https://github.com/qiuqiangkong/piano_transcription_inference/blob/master/setup.py
+The package metadata declares "License :: OSI Approved :: MIT License".
+Upstream does not supply a standalone LICENSE file. The declared MIT terms are
+reproduced below, with attribution to Qiuqiang Kong; no copyright year is inferred.
+
+PianoRain adapts event extraction to Kotlin, separates pedal from key release,
+and clips events to the source audio duration. The ONNX export wrapper is also
+based on this reference package. Preserve this attribution when reusing it.
+
+MIT License
+Attribution: Qiuqiang Kong, piano_transcription_inference contributors.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

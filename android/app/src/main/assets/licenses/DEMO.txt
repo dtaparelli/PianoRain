@@ -1,0 +1,35 @@
+Public piano demo
+
+Johann Sebastian Bach: Goldberg Variations, BWV 988 — Aria.
+Performer: Kimiko Ishizaka, Open Goldberg Variations (2012).
+Composition: public domain.
+Recording: CC0 1.0 Universal Public Domain Dedication.
+Project: https://opengoldbergvariations.org/
+Recording/license page: https://commons.wikimedia.org/wiki/File:Goldberg_Variations_01_Aria.ogg
+Original audio: https://upload.wikimedia.org/wikipedia/commons/4/42/Goldberg_Variations_01_Aria.ogg
+License: https://creativecommons.org/publicdomain/zero/1.0/
+Full legal text: CC0-1.0.txt, included alongside this notice.
+
+PianoRain uses source time 0–26.5 seconds, preserving leading silence and speed.
+The final 0.5 seconds fade linearly to silence. Ogg Vorbis was decoded to stereo
+44.1 kHz PCM16 WAV. No normalization or musical time shift was applied.
+
+The accompanying notes.mid is an approximate transcription generated locally
+with the original float32 Note_pedal ONNX model, not a captured MIDI performance
+or a verified score. Preparation uses stereo averaging, scipy resample_poly
+(44.1 kHz → 16 kHz), PCM16 precision, ten-second windows with 50% overlap and
+reference quarter/three-quarter stitching. Note/pedal events clip to 26.5 s.
+MIDI export uses 384 PPQ and 500000 microseconds per quarter note.
+Model and reference implementation attribution: MODEL.txt.
+
+PianoRain dedicates any rights it holds in the excerpt edits, generated MIDI
+and accompanying public-demo regression data under CC0 1.0. These assets keep
+separate terms from the Apache-licensed app code. No endorsement is implied.
+
+SHA-256 provenance:
+Original Ogg: 70e465253efee94dada9e0f545b7eda68966d8744ba6d1bf64a2d081fc65a1f3
+Bundled WAV: 9e7f5aee935a345de848662173e0d37e2f90c9d9c9eaa7f672bec67f0b6d7fee
+Bundled MIDI: e6c85cbad568328b199fddf8ee2e57137b9333215c2ece70c5a77fb5ce54fb62
+
+Regression reference: 69 notes, 13 pedal intervals, MIDI pitches 47–83.
+The reference verifies export/parsing timing, not transcription accuracy.

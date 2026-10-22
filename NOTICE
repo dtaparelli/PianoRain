@@ -1,0 +1,22 @@
+PianoRain
+Copyright 2026 Daniel Taparelli
+
+Original PianoRain source code and documentation are licensed under the
+Apache License, Version 2.0. See LICENSE.
+
+Third-party code, libraries and model weights retain their respective licenses.
+See THIRD_PARTY_NOTICES.md and android/app/src/main/assets/licenses/.
+
+PUBLIC DEMO
+Goldberg Variations, BWV 988 — Aria (26.5-second excerpt).
+Composer: Johann Sebastian Bach (public-domain composition).
+Piano: Kimiko Ishizaka, Open Goldberg Variations (2012), CC0 1.0.
+Source: https://commons.wikimedia.org/wiki/File:Goldberg_Variations_01_Aria.ogg
+Excerpt ends with a 0.5-second fade. The accompanying MIDI is an approximate
+model-generated transcription of this excerpt; see assets/licenses/DEMO.txt.
+
+PRIVATE MATERIAL
+The owner's former personal audio/MIDI and related test fixtures are no longer
+in the app or current test resources. Their private backup under ignored work/
+is excluded from the Apache grant and is not authorized for redistribution.
+User-imported recordings remain subject to their owners' rights.

@@ -1,0 +1,55 @@
+# PianoRain architecture
+
+PianoRain is a single-module Kotlin/Compose Android app with two main screens: Songs and Player, plus an offline license viewer. Audio import and playback run entirely on the device.
+
+## Data flow
+
+```text
+Selected audio → private copy → decode / resample → ONNX inference
+               → note and pedal extraction → saved timeline → Ready song
+
+Bundled MIDI → MIDI parser ─────┐
+Saved imported timeline ────────┤→ visible notes → Compose Canvas
+Audio → Media3 source position ─┘
+```
+
+The bundled CC0 Open Goldberg Aria excerpt uses PCM WAV and a generated MIDI transcription. Imported songs use a private audio copy and versioned JSON timeline.
+
+## Code map
+
+- `data/`: bundled catalog, imported-song manifests, timeline serialization and library state.
+- `domain/`: immutable song, note and pedal data; clipping at the audio boundary.
+- `midi/`: pure Kotlin type-0/type-1 PPQ parser with tempo maps, running status and channel-aware FIFO note pairing. Missing releases close at file end; SMPTE/type-2 files are rejected.
+- `playback/`: one ViewModel-owned Media3 player, transport, countdown, speed and saved position.
+- `rendering/`: pure key geometry and visible-note queries, plus Compose Canvas drawing.
+- `transcription/`: Android decoding, sinc resampling, ONNX inference, pure Kotlin event extraction and the serial import service.
+- `ui/`: library/picker/progress, immersive player, controls and fixed theme.
+- `tools/transcription/`: local model export and desktop parity validation.
+
+## Playback and rendering
+
+Media3's source position is the only musical clock. All player calls and frame reads stay on its application thread. Display frames update Canvas drawing without recomposing the whole screen.
+
+The three-second countdown uses separate negative display time. Source timestamps never shift. Pause preserves an unfinished countdown; normal pause/resume does not repeat it. Seeking cancels countdown and immediately redraws held and upcoming notes. Scrubbing pauses audio, previews the target and restores the previous playback request when committed.
+
+Notes use key-release durations; pedal events remain separate. Events clip to source duration. At playback end, rendering uses the exact source duration even when the player reports rounded milliseconds. The visible-note index uses prefix maximum releases to include long held notes after seeking.
+
+Playback speed preserves pitch; notes continue to follow source time. Speed and position persist per song. Rotation retains the player; leaving Player or backgrounding pauses it. Owner destruction releases audio resources. A new process restores paused.
+
+Player requests landscape and hides system bars with swipe access. Controls fade after three seconds of playback and reappear on touch. Pause, countdown, seeking, pointer holds and the speed picker keep controls visible; accessibility timeout preferences apply. Songs restores normal orientation. Dynamic colors are disabled.
+
+## Offline import
+
+OpenDocument grants access to selected audio. The importer copies it into app-private storage and releases the document grant once the copy is durable. Retry reuses a completed copy; removal deletes only the private song folder.
+
+MediaExtractor/MediaCodec decodes to mono PCM on disk. Explicit encoder-delay/padding handling preserves source time, leading silence and real timestamp gaps. A 96-tap sinc resampler produces 16 kHz input with PCM16 precision.
+
+The full Note_pedal float32 model runs through ONNX Runtime Android 1.23.2 with four CPU threads and graph optimization disabled. The ignored model asset is copied into private versioned storage and checksum-verified on initial provisioning. Inference uses ten-second windows with 50% overlap and quarter/three-quarter stitching. Predictions spool to disk; extraction reads one pitch at a time. Key releases and pedal events clip to the decoded audio end.
+
+One user-started foreground service owns serial imports, a bounded wake lock and a cancellable notification. API 35+ uses mediaProcessing; API 34 uses specialUse. Cancellation is checked between processing steps and inference windows. Terminal status publication and service shutdown are coordinated on the main thread; manifest writes stay on the worker. Cancel intents do not prevent service shutdown.
+
+Each song has an AtomicFile manifest. A complete timeline is saved before Ready metadata. If the terminal manifest cannot be saved, the in-memory row becomes a retryable failure so the library is usable. After process death, persisted processing rows become interrupted failures. Temporary PCM/prediction files are cleaned after completion, failure or cancellation.
+
+## Storage and boundaries
+
+Imported audio, timelines, manifests and playback preferences stay private to the app. No Internet permission, model download or server fallback is present. Current import limits and remaining device validation are in [NOTES.md](NOTES.md). Model identity and attribution are in the [model README](android/app/src/main/assets/models/README.md).

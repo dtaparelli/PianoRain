@@ -1,0 +1,8 @@
+# Add to the original sample's Python 3.9 / torch 2.2.2 environment.
+# Install into an ignored --target directory to leave that environment unchanged.
+onnx==1.17.0
+onnxruntime==1.19.2
+protobuf==5.29.5
+flatbuffers==25.2.10
+coloredlogs==15.0.1
+humanfriendly==10.0
