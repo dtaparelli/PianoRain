@@ -29,7 +29,7 @@ Saved imported timeline ────────┤→ visible notes → Compose
 Audio → Media3 source position ─┘
 ```
 
-The bundled CC0 Open Goldberg Aria excerpt uses PCM WAV and a generated MIDI transcription. Imported songs use a private audio copy and versioned JSON timeline.
+The bundled Open Goldberg Aria (CC0) and Chopin Prelude Op. 28 No. 20 (CC BY 3.0) excerpts use PCM WAV and generated MIDI transcriptions. Imported songs use a private audio copy and versioned JSON timeline.
 
 ### Code map
 
@@ -77,8 +77,8 @@ Imported audio, timelines, manifests and playback preferences stay private to th
 - Piano transcription is approximate, especially with noise, reverb or other instruments. Decoder differences can affect low-confidence notes.
 - Lilac/rose indicate note register, not hands. Tile lengths represent key duration, not pedal-extended sound.
 - No background playback, note editing, hand assignment, MIDI export/synthesis, video export or microphone recording.
-- The bundled demo is a 26.5-second CC0 Open Goldberg Aria excerpt, with approximate generated MIDI. Original source silence is preserved; the last 0.5 seconds fade out.
-- The former personal assets and regression fixtures are backed up only under ignored `work/private-sample/`. The repository has a fresh current-version history that excludes these files.
+- The bundled demos are Aria (26.5 seconds, CC0) and Chopin Prelude Op. 28 No. 20 (30 seconds, CC BY 3.0), with approximate generated MIDI. Original source silence is preserved; the last 0.5 seconds fade out.
+- The former personal assets and regression fixtures are backed up only under ignored `work/private-sample/`. Repository history excludes these files.
 
 ## Device checks
 
@@ -92,4 +92,4 @@ Still to check on the current APK:
 - Wider AAC/MP3/WAV recordings, long-session memory/thermals and ten-minute imports.
 - Speaker/wired/Bluetooth sync, frame rate, rotation, background pause, seek previews and accessibility on the current build.
 - Open Songs → Licenses offline, scroll/select notice text, rotate, and return using both back controls.
-- Play the public Aria demo end to end, check perceptual note alignment and the fade, and seek through its initial silence.
+- Play both public demos end to end, check perceptual note alignment and their fades, and seek through held chords and initial silence.

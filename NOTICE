@@ -7,13 +7,19 @@ Apache License, Version 2.0. See LICENSE.
 Third-party code, libraries and model weights retain their respective licenses.
 See THIRD_PARTY_NOTICES.md and android/app/src/main/assets/licenses/.
 
-PUBLIC DEMO
+PUBLIC DEMOS
 Goldberg Variations, BWV 988 — Aria (26.5-second excerpt).
 Composer: Johann Sebastian Bach (public-domain composition).
 Piano: Kimiko Ishizaka, Open Goldberg Variations (2012), CC0 1.0.
 Source: https://commons.wikimedia.org/wiki/File:Goldberg_Variations_01_Aria.ogg
-Excerpt ends with a 0.5-second fade. The accompanying MIDI is an approximate
-model-generated transcription of this excerpt; see assets/licenses/DEMO.txt.
+
+Frédéric Chopin: Prelude in C minor, Op. 28 No. 20 (30-second excerpt).
+Piano: Ivan Ilic (2005), via Musopen / Wikimedia Commons, CC BY 3.0 Unported.
+Source: https://commons.wikimedia.org/wiki/File:Chopin_-_Preludes,_Op._28_-_No._20_%27Funeral_march%27.ogg
+License: https://creativecommons.org/licenses/by/3.0/
+Both excerpts end with a 0.5-second fade. Their MIDI files are approximate
+model-generated transcriptions; see assets/licenses/DEMO.txt.
+No endorsement by the performers or source projects is implied.
 
 PRIVATE MATERIAL
 The owner's former personal audio/MIDI and related test fixtures are no longer

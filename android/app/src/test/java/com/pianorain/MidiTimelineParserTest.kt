@@ -11,11 +11,39 @@ import kotlin.math.abs
 class MidiTimelineParserTest {
     private val parser = MidiTimelineParser()
     @Test fun publicDemoMidiMatchesEveryReferenceNote() {
-        val midi = javaClass.getResourceAsStream("/goldberg-aria.mid")!!.use { it.readBytes() }
-        val reference = JSONObject(javaClass.getResourceAsStream("/goldberg-aria.json")!!.bufferedReader().use { it.readText() })
+        assertDemoReference("goldberg-aria", 69)
+    }
+    @Test fun chordDemoMidiMatchesEveryReferenceNote() {
+        assertDemoReference("chopin-prelude20", 134)
+        val dense = demoNotes("chopin-prelude20")
+        val aria = demoNotes("goldberg-aria")
+        fun heldChordFraction(notes: List<com.pianorain.domain.NoteEvent>): Double {
+            val duration = notes.maxOf { it.endUs }
+            var chordSamples = 0
+            val sampleCount = (duration / 10_000).toInt()
+            repeat(sampleCount) { i ->
+                val time = i * 10_000L
+                if (notes.count { it.startUs <= time && time < it.endUs } >= 4) chordSamples++
+            }
+            return chordSamples.toDouble() / sampleCount
+        }
+        assertTrue("Second demo should contain substantially more held chords",
+            heldChordFraction(dense) > heldChordFraction(aria) * 2)
+        val at = dense.maxBy { note -> dense.count { it.startUs <= note.startUs && note.startUs < it.endUs } }.startUs
+        val held = dense.filter { it.startUs <= at && at < it.endUs }
+        assertTrue(held.size >= 6)
+        assertTrue(held.any { it.pitch < 60 } && held.any { it.pitch >= 60 })
+        assertTrue(com.pianorain.rendering.TimelineIndex(dense).visible(at, 3_000_000).containsAll(held))
+    }
+    private fun demoNotes(id: String) = javaClass.getResourceAsStream("/$id.mid")!!.use {
+        parser.parse(it.readBytes()).notes
+    }
+    private fun assertDemoReference(id: String, expectedCount: Int) {
+        val midi = javaClass.getResourceAsStream("/$id.mid")!!.use { it.readBytes() }
+        val reference = JSONObject(javaClass.getResourceAsStream("/$id.json")!!.bufferedReader().use { it.readText() })
         val parsed = parser.parse(midi)
         val expected = reference.getJSONArray("notes")
-        assertEquals(69, expected.length())
+        assertEquals(expectedCount, expected.length())
         assertEquals(expected.length(), parsed.notes.size)
         val unmatched = parsed.notes.toMutableList()
         for (i in 0 until expected.length()) {

@@ -7,3 +7,8 @@
 work/
 outputs/
 android/app/src/main/assets/models/*.onnx
+
+# Local capture originals and alternate demo encodes
+/Screen_Recording_*.mp4
+/Screenshot_*.jpg
+/docs/media/*.mp4

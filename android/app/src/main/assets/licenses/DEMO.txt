@@ -1,4 +1,4 @@
-Public piano demo
+Public piano demos
 
 Johann Sebastian Bach: Goldberg Variations, BWV 988 — Aria.
 Performer: Kimiko Ishizaka, Open Goldberg Variations (2012).
@@ -33,3 +33,33 @@ Bundled MIDI: e6c85cbad568328b199fddf8ee2e57137b9333215c2ece70c5a77fb5ce54fb62
 
 Regression reference: 69 notes, 13 pedal intervals, MIDI pitches 47–83.
 The reference verifies export/parsing timing, not transcription accuracy.
+
+Second public demo: Chopin Prelude in C minor
+
+Frédéric Chopin: Prelude in C minor, Op. 28 No. 20 (also titled Funeral march).
+Performer: Ivan Ilic. Recording metadata: 2005.
+Source: Musopen, mirrored on Wikimedia Commons.
+Recording/license page: https://commons.wikimedia.org/wiki/File:Chopin_-_Preludes,_Op._28_-_No._20_%27Funeral_march%27.ogg
+Original audio: https://upload.wikimedia.org/wikipedia/commons/2/21/Chopin_-_Preludes%2C_Op._28_-_No._20_%27Funeral_march%27.ogg
+Musopen source link: https://musopen.org/music/1134/frederic-chopin/preludes-op-28/
+Composition: public domain. Recording and edited audio excerpt: CC BY 3.0 Unported.
+https://creativecommons.org/licenses/by/3.0/
+Full terms: CC-BY-3.0.txt, included alongside this notice.
+No endorsement by the performer, Musopen or Wikimedia is implied.
+
+Changes by PianoRain: source time 0–30 seconds, preserving leading silence and
+original speed, decoded to stereo 44.1 kHz PCM16 WAV; linear fade over the final
+0.5 seconds. No normalization or musical time shift. The recording/excerpt
+retains CC BY 3.0; it is not relicensed under Apache or CC0.
+
+Approximate MIDI generated locally using the same preprocessing, model and
+export settings described for Aria. Note/pedal events clip to 30 seconds.
+It is not a captured performance score. PianoRain dedicates any rights it holds
+in its generated MIDI and regression data under CC0, without changing the
+recording's license or attribution requirements. Model attribution: MODEL.txt.
+Reference: 134 inferred notes, 20 pedal intervals, pitches 24–88.
+
+SHA-256 provenance (Chopin):
+Original Ogg: 88def081ce1e14ac62bf27675e8885bbceb8b36ffc6cf1f4c5ab1b69f7dd5147
+Bundled WAV: 6e6b64af4bc9a6c64cf3966fb5ed95aa3f72eb8088f42b39f638302e3176631c
+Bundled MIDI: 9a66e88e2f8a872ba5f15f559df50f3ebd877c0b15862389eb267a86a4f23310

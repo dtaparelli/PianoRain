@@ -24,7 +24,7 @@ fun LicensesScreen(onBack: () -> Unit) {
     LaunchedEffect(Unit) {
         try {
             documents = withContext(Dispatchers.IO) {
-                listOf("PIANORAIN.txt", "DEMO.txt", "CC0-1.0.txt", "MODEL.txt", "CC-BY-4.0.txt",
+                listOf("PIANORAIN.txt", "DEMO.txt", "CC0-1.0.txt", "CC-BY-3.0.txt", "MODEL.txt", "CC-BY-4.0.txt",
                     "ANDROID-DEPENDENCIES.txt", "ONNX-RUNTIME.txt").flatMap { name ->
                     val text = context.assets.open("licenses/$name").bufferedReader().use { it.readText() }
                     // Bound each text layout while preserving every character of the document.
