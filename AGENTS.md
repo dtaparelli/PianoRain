@@ -1,6 +1,6 @@
 # PianoRain
 
-Read README.md, NOTES.md and the relevant ARCHITECTURE.md sections before work.
+Read README.md and CONTRIBUTING.md before work.
 
 Kotlin/Compose Android app with Songs → Player, bundled audio/MIDI and offline piano-audio import. MediaCodec decoding and ONNX Runtime transcription produce saved source-relative timelines. Native Canvas animation follows Media3's audio position. No prerecorded animation/video, server, YouTube flow or audio upload.
 
@@ -12,6 +12,6 @@ Pause when leaving Player/backgrounding. Preserve rotation state, release audio 
 
 For changes run from android/ with JDK 17 and SDK 36:
 `./gradlew testDebugUnitTest assembleDebug lintDebug --console=plain`.
-Test MIDI/clock/geometry edge cases meaningfully; do not describe physical-device sync or rendering as verified by JVM tests. Track device checks separately. Keep README/NOTES current rather than appending session logs.
+Test MIDI/clock/geometry edge cases meaningfully; do not describe physical-device sync or rendering as verified by JVM tests. Track device checks separately. Keep README/CONTRIBUTING current rather than appending session logs.
 
 Do not commit local.properties, debug signing keys, build outputs or machine credentials. The initial personal audio/MIDI sample is authorized for local development, not public publishing. No uploading or remote publishing without authorization. Keep the local signing key stable for APK updates.

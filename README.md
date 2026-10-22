@@ -36,7 +36,7 @@ The APK is `android/app/build/outputs/apk/debug/app-debug.apk`; application ID i
 
 ## Development
 
-See [ARCHITECTURE.md](ARCHITECTURE.md) for the code structure and timing rules, and [NOTES.md](NOTES.md) for limitations and device checks.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for developer guidance, code structure, timing rules, limitations and device checks.
 Unit tests protect MIDI timing, note extraction, geometry and import completion. They do not verify physical audio sync or rendering performance.
 
 ## License
