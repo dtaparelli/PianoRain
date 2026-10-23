@@ -86,6 +86,12 @@ fun PianoRainApp(viewModel: PlaybackViewModel, library: LibraryViewModel) {
                 notificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
     }
+    var recording by remember { mutableStateOf(false) }
+    var permissionDenied by remember { mutableStateOf(false) }
+    val microphonePermission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+        recording = granted
+        permissionDenied = !granted
+    }
     var remove by remember { mutableStateOf<ImportedSong?>(null) }
     val state by viewModel.state.collectAsStateWithLifecycle()
     var selectedSongId by rememberSaveable { mutableStateOf<String?>(null) }
@@ -97,8 +103,27 @@ fun PianoRainApp(viewModel: PlaybackViewModel, library: LibraryViewModel) {
     Surface(Modifier.fillMaxSize(), color = Plum) {
         if (song != null) PlayerScreen(state, viewModel, back)
         else SongsScreen(allSongs, imports, starting, onAdd = { picker.launch(arrayOf("audio/*")) },
+            onRecord = {
+                if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) recording = true
+                else microphonePermission.launch(Manifest.permission.RECORD_AUDIO)
+            },
             onCancel = library::cancel, onRetry = library::retry, onRemove = { remove = it }) { selectedSongId = it.id }
     }
+    if (recording) RecordingDialog(onClose = { recording = false }, onSave = { file, title ->
+        library.addRecording(file, title)
+        recording = false
+        if (Build.VERSION.SDK_INT >= 33 && ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED)
+            notificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
+    })
+    if (permissionDenied) AlertDialog(onDismissRequest = { permissionDenied = false },
+        title = { Text("Microphone access needed") },
+        text = { Text("Allow microphone access to record piano audio. You can still add audio with From File.") },
+        confirmButton = { TextButton(onClick = {
+            permissionDenied = false
+            context.startActivity(android.content.Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                android.net.Uri.parse("package:${context.packageName}")))
+        }) { Text("Settings") } },
+        dismissButton = { TextButton(onClick = { permissionDenied = false }) { Text("Close") } })
     if (importError != null) AlertDialog(onDismissRequest = library::clearError, title = { Text("Unable to import audio") },
         text = { Text(importError.orEmpty()) }, confirmButton = { TextButton(onClick = library::clearError) { Text("OK") } })
     remove?.let { row -> AlertDialog(onDismissRequest = { remove = null }, title = { Text("Remove ${row.title}?") },
@@ -109,8 +134,9 @@ fun PianoRainApp(viewModel: PlaybackViewModel, library: LibraryViewModel) {
 
 @Composable
 private fun SongsScreen(songs: List<Song>, imports: List<ImportedSong>, starting: Boolean,
-    onAdd: () -> Unit, onCancel: (ImportedSong) -> Unit, onRetry: (ImportedSong) -> Unit,
+    onAdd: () -> Unit, onRecord: () -> Unit, onCancel: (ImportedSong) -> Unit, onRetry: (ImportedSong) -> Unit,
     onRemove: (ImportedSong) -> Unit, onOpen: (Song) -> Unit) {
+    var addMenu by remember { mutableStateOf(false) }
     var aboutVisible by rememberSaveable { mutableStateOf(false) }
     val uriHandler = LocalUriHandler.current
     if (aboutVisible) Dialog(onDismissRequest = { aboutVisible = false }) {
@@ -166,10 +192,18 @@ private fun SongsScreen(songs: List<Song>, imports: List<ImportedSong>, starting
                     RainMark(Modifier.size(24.dp))
                     Text("PianoRain", fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
                 }
-                TextButton(onClick = onAdd, enabled = !busy) {
-                    Icon(Icons.Default.Add, null, modifier = Modifier.size(18.dp))
-                    Spacer(Modifier.width(4.dp))
-                    Text(if (starting) "Opening audio…" else "Add Piano Audio")
+                Box {
+                    TextButton(onClick = { addMenu = true }, enabled = !busy) {
+                        Icon(Icons.Default.Add, null, modifier = Modifier.size(18.dp))
+                        Spacer(Modifier.width(4.dp))
+                        Text(if (starting) "Opening audio…" else "Add Song")
+                    }
+                    DropdownMenu(expanded = addMenu, onDismissRequest = { addMenu = false }) {
+                        DropdownMenuItem(text = { Text("Record") }, onClick = { addMenu = false; onRecord() },
+                            leadingIcon = { Icon(Icons.Default.Mic, null) })
+                        DropdownMenuItem(text = { Text("From File") }, onClick = { addMenu = false; onAdd() },
+                            leadingIcon = { Icon(Icons.Default.AudioFile, null) })
+                    }
                 }
             }
         }
@@ -260,7 +294,7 @@ private fun PlayerScreen(state: PlaybackState, viewModel: PlaybackViewModel, onB
             if (!activity.isChangingConfigurations) {
                 controller.show(WindowInsetsCompat.Type.systemBars())
                 controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_DEFAULT
-                activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+                activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
             }
         }
     }

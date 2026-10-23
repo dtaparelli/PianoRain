@@ -21,8 +21,9 @@ Songs and Player are the app screens. Tapping the Songs header opens a centered 
 ### Data flow
 
 ```text
-Selected audio → private copy → decode / resample → ONNX inference
-               → note and pedal extraction → saved timeline → Ready song
+Selected audio → private copy ───────┐
+Microphone → temporary take → Save ──┴→ decode / resample → ONNX inference
+                                       → note and pedal extraction → saved timeline → Ready song
 
 Bundled MIDI → MIDI parser ─────┐
 Saved imported timeline ────────┤→ visible notes → Compose Canvas
@@ -39,7 +40,7 @@ The bundled Open Goldberg Aria (CC0) and Chopin Prelude Op. 28 No. 20 (CC BY 3.0
 - `playback/`: one ViewModel-owned Media3 player, transport, countdown, speed and saved position.
 - `rendering/`: pure key geometry and visible-note queries, plus Compose Canvas drawing.
 - `transcription/`: Android decoding, sinc resampling, ONNX inference, pure Kotlin event extraction and the serial import service.
-- `ui/`: library/picker/progress, immersive player, controls and fixed theme.
+- `ui/`: library/picker/progress, microphone recording dialog, immersive player, controls and fixed theme.
 - `tools/transcription/`: local model export and desktop parity validation.
 
 ### Playback and rendering
@@ -52,7 +53,7 @@ Notes use key-release durations; pedal events remain separate. Events clip to so
 
 Playback speed preserves pitch; notes continue to follow source time. Speed and position persist per song. Rotation retains the player; leaving Player or backgrounding pauses it. Owner destruction releases audio resources. A new process restores paused.
 
-Player requests landscape and hides system bars with swipe access. Controls fade after three seconds of playback and reappear on touch. Pause, countdown, seeking, pointer holds and the speed picker keep controls visible; accessibility timeout preferences apply. Songs restores normal orientation. Dynamic colors are disabled.
+Player requests landscape and hides system bars with swipe access. Controls fade after three seconds of playback and reappear on touch. Pause, countdown, seeking, pointer holds and the speed picker keep controls visible; accessibility timeout preferences apply. Songs and recording are locked to portrait; Player uses sensor landscape. Dynamic colors are disabled.
 
 ### Offline import
 
@@ -68,6 +69,12 @@ One user-started foreground service owns serial imports, a bounded wake lock and
 
 Each song has an AtomicFile manifest. A complete timeline is saved before Ready metadata. If the terminal manifest cannot be saved, the in-memory row becomes a retryable failure so the library is usable. After process death, persisted processing rows become interrupted failures. Temporary PCM/prediction files are cleaned after completion, failure or cancellation.
 
+### Microphone recording
+
+Add Song offers Record and From File. Record checks microphone permission on selection and requests it only when access is missing; startup and From File do not request microphone access. Android may require another grant after a one-time permission expires or access is revoked. Recording captures mono AAC in M4A to a temporary private file. The dialog provides an editable timestamp name, level meter, pause/resume, stop, preview, save and discard. Recording is limited to ten minutes / 100 MB and requires 500 MB free before starting. Paused wall time is excluded; initial source silence stays intact.
+
+Backgrounding or losing audio focus discards unsaved takes; returning requires a new recording. Leaving the dialog asks before discarding. Process recreation never resumes capture, and orphaned temporary takes are removed on activity creation. Saving copies and syncs the audio into the song directory before starting the existing importer; preparation failures retain the saved audio for retry. No microphone foreground service is used.
+
 ### Storage and boundaries
 
 Imported audio, timelines, manifests and playback preferences stay private to the app. No Internet permission, model download or server fallback is present. Model identity and attribution are in the [model README](android/app/src/main/assets/models/README.md).
@@ -78,17 +85,23 @@ Imported audio, timelines, manifests and playback preferences stay private to th
 - The APK packages arm64 native libraries and a roughly 154 MB model. Fresh checkouts need the ignored model provisioned separately.
 - Piano transcription is approximate, especially with noise, reverb or other instruments. Decoder differences can affect low-confidence notes.
 - Lilac/rose indicate note register, not hands. Tile lengths represent key duration, not pedal-extended sound.
-- No background playback, note editing, hand assignment, MIDI export/synthesis, video export or microphone recording.
+- No background playback, note editing, hand assignment, MIDI export/synthesis, video export or background microphone recording.
 - The bundled demos are Aria (26.5 seconds, CC0) and Chopin Prelude Op. 28 No. 20 (30 seconds, CC BY 3.0), with approximate generated MIDI. Original source silence is preserved; the last 0.5 seconds fade out.
 
 ## Device checks
 
 Primary device: Samsung Galaxy A55, Android 16 / API 36. Existing device checks cover local import/playback, cancel/retry, process interruption/recovery, background import, saved-library persistence and removal without altering the source file. Device checks also confirm the Ready labels, app info dialog contents (v0.1), Close dismissal and repository link opening in Chrome. These do not verify the latest service-shutdown and storage-failure fixes.
 
+The recording build was installed as an update with existing app data preserved. The user confirmed that the recording feature works on this device. This confirms a basic recording smoke test; individual controls, permission edge cases, interruption handling and timing accuracy still need explicit checks.
+
 Still to check on the current APK:
 
 - Import checkpoints: stage transitions, skipped copy on retry, narrow screens, large text and TalkBack status announcements.
 
+- Recording: first-use permission, denial/Settings and one-time grant expiry; portrait lock outside Player.
+- Explicit coverage of pause/resume, preview, rename and save through Ready; source silence and pause boundaries on a physical device.
+- Discard confirmation, background/lock/call interruption, process death, short takes, microphone unavailable, low storage and duration limit.
+- Verify microphone indicator clears after stopping, saving, discarding or backgrounding.
 - Cancel an import from Songs and from its notification; confirm service exit, then retry and complete another import.
 - Exhaust storage during processing/final save; confirm a visible failure and that the library accepts further work after space is freed.
 - First-launch airplane-mode import, unsupported/protected formats and API 26–35 devices.
