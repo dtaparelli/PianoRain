@@ -21,10 +21,7 @@ Both excerpts end with a 0.5-second fade. Their MIDI files are approximate
 model-generated transcriptions; see assets/licenses/DEMO.txt.
 No endorsement by the performers or source projects is implied.
 
-PRIVATE MATERIAL
-The owner's former personal audio/MIDI and related test fixtures are no longer
-in the app or current test resources. Their private backup under ignored work/
-is excluded from the Apache grant and is not authorized for redistribution.
+IMPORTED RECORDINGS
 User-imported recordings remain subject to their owners' rights.
 
 

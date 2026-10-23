@@ -1,17 +1,15 @@
+# Local machine configuration and signing keys
 .DS_Store
+local.properties
+*.keystore
+*.jks
+
+# Generated files and local development material
 .gradle/
 .kotlin/
-**/build/
-**/local.properties
-**/debug.keystore
+build/
 work/
 outputs/
-android/app/src/main/assets/models/*.onnx
 
-# Local capture originals and alternate demo encodes
-/Screen_Recording_*.mp4
-/Screenshot_*.jpg
-/docs/media/*.mp4
-!/docs/media/rain-demo.mp4
-
-/rain-demo.mp4
+# Model weights are provisioned locally
+/android/app/src/main/assets/models/*.onnx

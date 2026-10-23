@@ -1,12 +1,12 @@
 # Third-party notices
 
-PianoRain's original code is Apache 2.0. Dependencies and model weights retain their own terms. The Aria demo is CC0; the Chopin recording/excerpt is CC BY 3.0; private material stays outside the current source tree. See [NOTICE](NOTICE).
+PianoRain's original code is Apache 2.0. Dependencies and model weights retain their own terms. The Aria demo is CC0; the Chopin recording/excerpt is CC BY 3.0. See [NOTICE](NOTICE).
 
 ## Included in the APK
 
 License documents are maintained in [assets/licenses](android/app/src/main/assets/licenses/) and included in the APK:
 
-- `PIANORAIN.txt`: PianoRain copyright, demo attribution and private-material exclusion and full Apache 2.0 license.
+- `PIANORAIN.txt`: PianoRain copyright, demo attribution, imported-recording rights and full Apache 2.0 license.
 - `MODEL.txt`: model creator/source, CC BY 4.0 attribution, ONNX conversion details and adapted-code attribution/MIT terms.
 - `CC-BY-4.0.txt`: full model license.
 - `DEMO.txt`, `CC0-1.0.txt` and `CC-BY-3.0.txt`: Open Goldberg Aria and Ivan Ilic Chopin sources, credits, excerpt/transcription changes and full demo license terms.
@@ -27,4 +27,4 @@ Python model-export tooling runs locally and is not included in the APK. It uses
 
 After dependency changes, resolve `:app:dependencies --configuration debugRuntimeClasspath`, check the relevant POMs (including inherited licenses), and collect applicable LICENSE/NOTICE files from the resolved AAR/JARs. Refresh the inventory and ONNX version-specific notices. Preserve full license texts and required attribution in both the repository and APK. A model replacement needs its own source/license review.
 
-The personal demo and old regression fixtures are no longer in the app or test resources. They remain only in ignored private backups, outside the fresh repository history; do not publish those backups. The public source repository excludes model binaries, APKs and private backups.
+The public source repository excludes model binaries and APKs.

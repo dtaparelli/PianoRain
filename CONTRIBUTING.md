@@ -78,7 +78,6 @@ Imported audio, timelines, manifests and playback preferences stay private to th
 - Lilac/rose indicate note register, not hands. Tile lengths represent key duration, not pedal-extended sound.
 - No background playback, note editing, hand assignment, MIDI export/synthesis, video export or microphone recording.
 - The bundled demos are Aria (26.5 seconds, CC0) and Chopin Prelude Op. 28 No. 20 (30 seconds, CC BY 3.0), with approximate generated MIDI. Original source silence is preserved; the last 0.5 seconds fade out.
-- The former personal assets and regression fixtures are backed up only under ignored `work/private-sample/`. Repository history excludes these files.
 
 ## Device checks
 
