@@ -1,13 +1,14 @@
 # Piano Rain
 
 An offline Android app that plays piano recordings with falling notes and a live keyboard.
-Import piano audio, wait for the local transcription to finish, then open it in the player. No server or account required.
+Record piano audio or import a file, wait for the local transcription to finish, then open it in the player. No server or account required.
 
 ![Piano Rain playing the Chopin demo](docs/media/player.jpg)
 
 ## Features
 
-- Local audio import with progress, cancellation, retry and removal.
+- Record piano audio or import a file, with offline preparation, cancellation, retry and removal.
+- Recording includes pause/resume, preview and an editable timestamp name. Microphone access is requested when choosing Record.
 - Landscape piano roll drawn live from note events.
 - Play/pause, seeking, ten-second skips and 25%–100% playback speed with preserved pitch.
 - No account, server or audio upload.

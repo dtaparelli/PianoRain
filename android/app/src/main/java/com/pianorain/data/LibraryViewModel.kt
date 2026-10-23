@@ -38,6 +38,43 @@ class LibraryViewModel(app: Application): AndroidViewModel(app) {
             finally { _starting.value=false }
         }
     }
+    fun addRecording(file: java.io.File, title: String) {
+        if (_starting.value || rows.value.any { it.busy }) {
+            file.delete()
+            return
+        }
+        _starting.value = true
+        viewModelScope.launch {
+            try {
+                val row = withContext(Dispatchers.IO) {
+                    val entry = store.create(title.trim().take(100).ifBlank { "Piano recording" }, "")
+                    try {
+                        val audio = java.io.File(store.directory(entry.id), "audio")
+                        val pending = java.io.File(store.directory(entry.id), "audio.partial")
+                        file.inputStream().use { input ->
+                            java.io.FileOutputStream(pending).use { output ->
+                                input.copyTo(output)
+                                output.fd.sync()
+                            }
+                        }
+                        check(pending.renameTo(audio)) { "Unable to save recording." }
+                        file.delete()
+                        entry
+                    } catch (error: Exception) {
+                        store.remove(entry.id)
+                        throw error
+                    }
+                }
+                start(row)
+            } catch (error: Exception) {
+                _error.value = error.message ?: "Unable to save recording."
+            } finally {
+                // Once adopted, the library owns the recording even if service startup fails.
+                file.delete()
+                _starting.value = false
+            }
+        }
+    }
     private suspend fun start(row: ImportedSong) {
         try {
             ContextCompat.startForegroundService(getApplication(),Intent(getApplication(),ImportService::class.java).putExtra("id",row.id))

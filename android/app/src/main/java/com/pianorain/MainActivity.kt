@@ -16,6 +16,10 @@ class MainActivity : ComponentActivity() {
     private val library: LibraryViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // A killed process cannot resume microphone capture; discard orphaned takes.
+        cacheDir.listFiles()?.filter {
+            it.name.startsWith("piano-recording-") && it.extension == "m4a"
+        }?.forEach { it.delete() }
         enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(android.graphics.Color.TRANSPARENT),
             navigationBarStyle = SystemBarStyle.dark(android.graphics.Color.TRANSPARENT))
         setContent { PianoRainTheme { PianoRainApp(playback, library) } }
