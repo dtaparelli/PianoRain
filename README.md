@@ -24,11 +24,6 @@ See [Development](#development) for possible improvements to transcription accur
 
 https://github.com/user-attachments/assets/af22695f-cf14-4fd4-bebf-de1a6f0c2dd7
 
-Bundled demos:
-
-- Bach’s gentle *Goldberg Variations — Aria* (26.5 seconds, Kimiko Ishizaka, CC0)
-- Chopin’s chord-heavy *Prelude in C minor, Op. 28 No. 20* (30 seconds, Ivan Ilic, CC BY 3.0)
-
 ## Built with
 
 Kotlin, Jetpack Compose, Media3 ExoPlayer, Android MediaCodec and ONNX Runtime.
