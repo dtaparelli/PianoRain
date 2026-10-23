@@ -16,7 +16,7 @@ JVM tests do not exercise Android service lifecycle, codecs, physical audio late
 
 ## Implementation
 
-Songs and Player are the main screens; an auxiliary viewer shows offline license notices.
+Songs and Player are the app screens. License notices are maintained in the repository and included in APK assets.
 
 ### Data flow
 
@@ -91,5 +91,4 @@ Still to check on the current APK:
 - First-launch airplane-mode import, unsupported/protected formats and API 26–35 devices.
 - Wider AAC/MP3/WAV recordings, long-session memory/thermals and ten-minute imports.
 - Speaker/wired/Bluetooth sync, frame rate, rotation, background pause, seek previews and accessibility on the current build.
-- Open Songs → Licenses offline, scroll/select notice text, rotate, and return using both back controls.
 - Play both public demos end to end, check perceptual note alignment and their fades, and seek through held chords and initial silence.

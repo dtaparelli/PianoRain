@@ -81,19 +81,15 @@ fun PianoRainApp(viewModel: PlaybackViewModel, library: LibraryViewModel) {
     var remove by remember { mutableStateOf<ImportedSong?>(null) }
     val state by viewModel.state.collectAsStateWithLifecycle()
     var selectedSongId by rememberSaveable { mutableStateOf<String?>(null) }
-    var licensesVisible by rememberSaveable { mutableStateOf(false) }
     val allSongs = viewModel.songs + imports.filter { it.state == "ready" }.map(library::song)
     val song = allSongs.find { it.id == selectedSongId }
     LaunchedEffect(song?.id) { song?.let(viewModel::open) }
     val back = { viewModel.leavePlayer(); selectedSongId = null }
     BackHandler(enabled = song != null, onBack = back)
-    BackHandler(enabled = licensesVisible) { licensesVisible = false }
     Surface(Modifier.fillMaxSize(), color = Plum) {
-        if (licensesVisible) LicensesScreen(onBack = { licensesVisible = false })
-        else if (song != null) PlayerScreen(state, viewModel, back)
+        if (song != null) PlayerScreen(state, viewModel, back)
         else SongsScreen(allSongs, imports, starting, onAdd = { picker.launch(arrayOf("audio/*")) },
-            onCancel = library::cancel, onRetry = library::retry, onRemove = { remove = it },
-            onLicenses = { licensesVisible = true }) { selectedSongId = it.id }
+            onCancel = library::cancel, onRetry = library::retry, onRemove = { remove = it }) { selectedSongId = it.id }
     }
     if (importError != null) AlertDialog(onDismissRequest = library::clearError, title = { Text("Unable to import audio") },
         text = { Text(importError.orEmpty()) }, confirmButton = { TextButton(onClick = library::clearError) { Text("OK") } })
@@ -106,7 +102,7 @@ fun PianoRainApp(viewModel: PlaybackViewModel, library: LibraryViewModel) {
 @Composable
 private fun SongsScreen(songs: List<Song>, imports: List<ImportedSong>, starting: Boolean,
     onAdd: () -> Unit, onCancel: (ImportedSong) -> Unit, onRetry: (ImportedSong) -> Unit,
-    onRemove: (ImportedSong) -> Unit, onLicenses: () -> Unit, onOpen: (Song) -> Unit) {
+    onRemove: (ImportedSong) -> Unit, onOpen: (Song) -> Unit) {
     val busy = starting || imports.any { it.busy }
     val activity = LocalActivity.current
     DisposableEffect(busy, activity) {
@@ -148,7 +144,6 @@ private fun SongsScreen(songs: List<Song>, imports: List<ImportedSong>, starting
                 }
             }
         }
-        item { TextButton(onClick = onLicenses) { Text("Licenses") } }
         items(songs, key = { it.id }) { song ->
             Card(onClick = { onOpen(song) }, shape = RoundedCornerShape(22.dp), colors = CardDefaults.cardColors(containerColor = Panel)) {
                 Row(Modifier.fillMaxWidth().padding(18.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {

@@ -4,7 +4,7 @@ PianoRain's original code is Apache 2.0. Dependencies and model weights retain t
 
 ## Included in the APK
 
-Open **Songs → Licenses** to read the same offline documents stored in [assets/licenses](android/app/src/main/assets/licenses/):
+License documents are maintained in [assets/licenses](android/app/src/main/assets/licenses/) and included in the APK:
 
 - `PIANORAIN.txt`: PianoRain copyright, demo attribution and private-material exclusion and full Apache 2.0 license.
 - `MODEL.txt`: model creator/source, CC BY 4.0 attribution, ONNX conversion details and adapted-code attribution/MIT terms.
