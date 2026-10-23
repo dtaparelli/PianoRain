@@ -187,6 +187,7 @@ private fun SongsScreen(songs: List<Song>, imports: List<ImportedSong>, starting
                     if (row.busy) {
                         if (row.progress > 0f) LinearProgressIndicator(progress = { row.progress.coerceIn(0f,1f) }, modifier = Modifier.fillMaxWidth())
                         else LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+                        ImportCheckpoints(row.stage)
                         TextButton(onClick = { onCancel(row) }) { Text("Cancel") }
                     } else Row {
                         TextButton(onClick = { onRetry(row) }, enabled = !busy) { Text("Retry") }
@@ -398,4 +399,48 @@ private fun RainMark(modifier: Modifier, decorative: Boolean = false) {
 private fun formatTime(us: Long): String {
     val seconds = (us.coerceAtLeast(0) / 1_000_000).toInt()
     return "%d:%02d".format(seconds / 60, seconds % 60)
+}
+
+@Composable
+private fun ImportCheckpoints(stage: String) {
+    val active = when (stage) {
+        "Decoding audio", "Preparing piano audio" -> 1
+        "Loading piano model", "Generating notes" -> 2
+        "Saving piano notes" -> 3
+        else -> 0
+    }
+    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+        listOf("Import", "Prepare", "Transcribe", "Save").forEachIndexed { index, label ->
+            val complete = index < active
+            val current = index == active
+            val tint = when {
+                complete -> Lilac
+                current -> Rose
+                else -> Muted.copy(alpha = 0.5f)
+            }
+            val status = when {
+                complete -> "completed"
+                current -> "in progress"
+                else -> "upcoming"
+            }
+            Column(
+                Modifier.weight(1f).semantics(mergeDescendants = true) {
+                    contentDescription = "$label: $status"
+                },
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                if (complete) {
+                    Icon(Icons.Default.CheckCircle, contentDescription = null, tint = tint,
+                        modifier = Modifier.size(16.dp))
+                } else {
+                    Box(Modifier.size(16.dp), contentAlignment = Alignment.Center) {
+                        Box(Modifier.size(if (current) 10.dp else 6.dp).clip(CircleShape).background(tint))
+                    }
+                }
+                Text(label, color = tint, style = MaterialTheme.typography.labelSmall,
+                    fontWeight = if (current) FontWeight.SemiBold else FontWeight.Normal)
+            }
+        }
+    }
 }

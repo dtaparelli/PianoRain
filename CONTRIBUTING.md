@@ -56,6 +56,8 @@ Player requests landscape and hides system bars with swipe access. Controls fade
 
 ### Offline import
 
+Import cards keep the detailed stage label and progress bar above four checkpoints: Import, Prepare, Transcribe and Save. Completed checkpoints use lilac checks, the active checkpoint uses a rose dot, and upcoming checkpoints stay muted.
+
 OpenDocument grants access to selected audio. The importer copies it into app-private storage and releases the document grant once the copy is durable. Retry reuses a completed copy; removal deletes only the private song folder.
 
 MediaExtractor/MediaCodec decodes to mono PCM on disk. Explicit encoder-delay/padding handling preserves source time, leading silence and real timestamp gaps. A 96-tap sinc resampler produces 16 kHz input with PCM16 precision.
@@ -84,6 +86,8 @@ Imported audio, timelines, manifests and playback preferences stay private to th
 Primary device: Samsung Galaxy A55, Android 16 / API 36. Existing device checks cover local import/playback, cancel/retry, process interruption/recovery, background import, saved-library persistence and removal without altering the source file. Device checks also confirm the Ready labels, app info dialog contents (v0.1), Close dismissal and repository link opening in Chrome. These do not verify the latest service-shutdown and storage-failure fixes.
 
 Still to check on the current APK:
+
+- Import checkpoints: stage transitions, skipped copy on retry, narrow screens, large text and TalkBack status announcements.
 
 - Cancel an import from Songs and from its notification; confirm service exit, then retry and complete another import.
 - Exhaust storage during processing/final save; confirm a visible failure and that the library accepts further work after space is freed.
