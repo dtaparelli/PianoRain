@@ -23,7 +23,7 @@ Inference runs offline on the CPU through ONNX Runtime Android 1.23.2. See the [
 The model is intended for solo piano, and we have not tested it with other instruments or ensemble recordings. Its transcriptions are approximate. It can be a useful tool for pianists, but beginners should be aware of noise and 'ghost notes'.
 See [Development](#development) for possible improvements to transcription accuracy.
 
-https://github.com/user-attachments/assets/af22695f-cf14-4fd4-bebf-de1a6f0c2dd7
+https://github.com/user-attachments/assets/43fddd9d-78e4-4e5b-88fb-e5f846a0826a
 
 ## Built with
 
