@@ -29,6 +29,14 @@ import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalAccessibilityManager
 import kotlinx.coroutines.delay
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.foundation.clickable
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.semantics.Role
+import com.pianorain.BuildConfig
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -103,6 +111,42 @@ fun PianoRainApp(viewModel: PlaybackViewModel, library: LibraryViewModel) {
 private fun SongsScreen(songs: List<Song>, imports: List<ImportedSong>, starting: Boolean,
     onAdd: () -> Unit, onCancel: (ImportedSong) -> Unit, onRetry: (ImportedSong) -> Unit,
     onRemove: (ImportedSong) -> Unit, onOpen: (Song) -> Unit) {
+    var aboutVisible by rememberSaveable { mutableStateOf(false) }
+    val uriHandler = LocalUriHandler.current
+    if (aboutVisible) Dialog(onDismissRequest = { aboutVisible = false }) {
+        Surface(
+            shape = RoundedCornerShape(28.dp),
+            color = Panel.copy(alpha = .92f),
+            border = BorderStroke(1.dp, Lilac.copy(alpha = .18f)),
+            shadowElevation = 16.dp
+        ) {
+            Column(
+                Modifier.fillMaxWidth()
+                    .background(Brush.verticalGradient(listOf(Lilac.copy(alpha = .08f), Color.Transparent)))
+                    .padding(horizontal = 28.dp, vertical = 28.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Box(
+                    Modifier.size(72.dp).clip(RoundedCornerShape(22.dp)).background(Lilac.copy(alpha = .08f)),
+                    contentAlignment = Alignment.Center
+                ) { RainMark(Modifier.size(40.dp)) }
+                Text("PianoRain", style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.SemiBold, textAlign = TextAlign.Center)
+                Text("v${BuildConfig.VERSION_NAME}", style = MaterialTheme.typography.bodyMedium,
+                    color = Muted, textAlign = TextAlign.Center)
+                TextButton(onClick = { uriHandler.openUri("https://github.com/dtaparelli/PianoRain") }) {
+                    Text("GitHub", textDecoration = TextDecoration.Underline)
+                }
+                OutlinedButton(
+                    onClick = { aboutVisible = false },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(16.dp),
+                    border = BorderStroke(1.dp, Lilac.copy(alpha = .24f))
+                ) { Text("Close") }
+            }
+        }
+    }
     val busy = starting || imports.any { it.busy }
     val activity = LocalActivity.current
     DisposableEffect(busy, activity) {
@@ -113,8 +157,15 @@ private fun SongsScreen(songs: List<Song>, imports: List<ImportedSong>, starting
         contentPadding = PaddingValues(horizontal = 24.dp, vertical = 24.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
         item {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                RainMark(Modifier.size(24.dp))
-                Text("PianoRain", modifier = Modifier.weight(1f), fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
+                Row(
+                    Modifier.weight(1f).heightIn(min = 48.dp).clip(RoundedCornerShape(12.dp))
+                        .clickable(role = Role.Button, onClickLabel = "About PianoRain") { aboutVisible = true },
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    RainMark(Modifier.size(24.dp))
+                    Text("PianoRain", fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
+                }
                 TextButton(onClick = onAdd, enabled = !busy) {
                     Icon(Icons.Default.Add, null, modifier = Modifier.size(18.dp))
                     Spacer(Modifier.width(4.dp))
@@ -154,7 +205,7 @@ private fun SongsScreen(songs: List<Song>, imports: List<ImportedSong>, starting
                         Text(song.title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                             Icon(Icons.Default.CheckCircle, null, tint = Lilac, modifier = Modifier.size(12.dp))
-                            Text("Ready offline · ${formatTime(song.durationUs)}", color = Lilac, style = MaterialTheme.typography.labelSmall)
+                            Text("Ready · ${formatTime(song.durationUs)}", color = Lilac, style = MaterialTheme.typography.labelSmall)
                         }
                     }
                     if (song.imported) IconButton(onClick = { imports.find { it.id == song.id }?.let(onRemove) }) {

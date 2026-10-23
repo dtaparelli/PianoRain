@@ -16,7 +16,7 @@ JVM tests do not exercise Android service lifecycle, codecs, physical audio late
 
 ## Implementation
 
-Songs and Player are the app screens. License notices are maintained in the repository and included in APK assets.
+Songs and Player are the app screens. Tapping the Songs header opens a centered app info dialog with a translucent plum panel, the Gradle version, a GitHub link and Close button. License notices are maintained in the repository and included in APK assets.
 
 ### Data flow
 
@@ -82,7 +82,7 @@ Imported audio, timelines, manifests and playback preferences stay private to th
 
 ## Device checks
 
-Primary device: Samsung Galaxy A55, Android 16 / API 36. Existing device checks cover local import/playback, cancel/retry, process interruption/recovery, background import, saved-library persistence and removal without altering the source file. These do not verify the latest service-shutdown and storage-failure fixes.
+Primary device: Samsung Galaxy A55, Android 16 / API 36. Existing device checks cover local import/playback, cancel/retry, process interruption/recovery, background import, saved-library persistence and removal without altering the source file. Device checks also confirm the Ready labels, app info dialog contents (v0.1), Close dismissal and repository link opening in Chrome. These do not verify the latest service-shutdown and storage-failure fixes.
 
 Still to check on the current APK:
 

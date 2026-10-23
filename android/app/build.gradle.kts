@@ -11,8 +11,8 @@ android {
         minSdk = 26
         targetSdk = 36
         ndk { abiFilters += "arm64-v8a" }
-        versionCode = 6
-        versionName = "0.2.1"
+        versionCode = 7
+        versionName = "0.1"
     }
     signingConfigs { getByName("debug") { storeFile = file("debug.keystore") } }
     compileOptions {
@@ -20,7 +20,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions { jvmTarget = "17" }
-    buildFeatures { compose = true }
+    buildFeatures { compose = true; buildConfig = true }
     androidResources { noCompress += "onnx" }
     testOptions { unitTests.isReturnDefaultValues = true }
 }

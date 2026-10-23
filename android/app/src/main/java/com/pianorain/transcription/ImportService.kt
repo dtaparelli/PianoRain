@@ -87,7 +87,7 @@ class ImportService : Service() {
                     .put("audioSha256",digest.digest().joinToString("") { "%02x".format(it.toInt() and 255) })
                     .put("nativeRate",result.nativeRate).put("resampledSamples",result.samples)
                 LibraryStore.writeAtomic(File(folder,"timeline.json"),timeline.toString())
-                check();outcome=row.copy(state="ready",stage="Ready offline",progress=1f,durationUs=result.durationUs,uri="")
+                check();outcome=row.copy(state="ready",stage="Ready",progress=1f,durationUs=result.durationUs,uri="")
             } catch (error: Exception) {
                 val wasCancelled=error is CancellationException
                 outcome=row.copy(state=if (wasCancelled) "cancelled" else "failed",stage=if (wasCancelled) "Cancelled" else "Import failed",
