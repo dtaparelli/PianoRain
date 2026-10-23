@@ -12,4 +12,6 @@ android/app/src/main/assets/models/*.onnx
 /Screen_Recording_*.mp4
 /Screenshot_*.jpg
 /docs/media/*.mp4
-!/docs/media/piano-rain-demo-sound.mp4
+!/docs/media/rain-demo.mp4
+
+/rain-demo.mp4
