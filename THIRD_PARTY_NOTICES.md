@@ -1,6 +1,6 @@
 # Third-party notices
 
-PianoRain's original code is Apache 2.0. Dependencies and model weights retain their own terms. The Chopin recording and excerpt use CC BY 3.0. The Entertainer uses CC BY 4.0. See [NOTICE](NOTICE).
+PianoRain's original code is Apache 2.0. Dependencies and model weights retain their own terms. The Chopin recording and excerpt use CC BY 3.0. Silken Notes and The Entertainer use CC BY 4.0. See [NOTICE](NOTICE).
 
 ## Included in the APK
 

@@ -40,6 +40,21 @@ Original MP3: c161b688f05ddd49d636bf24e3286488195a0060ad16455b2d0b3dca89954358
 Bundled WAV: 5464826a3879d2904013e8d7d80328c27f6bfb68f66ad8a5b3215c766ddf242f
 Bundled MIDI: 8f218edeb96ba9acb810cfd376574db454c66690c748099aedb22b44abce1e90
 
+Silken Notes by Sascha Ende (ende.app), released April 17, 2024.
+Track and attribution: https://ende.app/en/song/12285-silken-notes
+License: CC BY 4.0, https://creativecommons.org/licenses/by/4.0/
+Full terms: CC-BY-4.0.txt, included alongside this notice.
+PianoRain decoded the supplied MP3's first 30 seconds to stereo 48 kHz PCM16
+WAV and applied a 0.5-second linear fade at the end. Source timing and speed
+are preserved. The excerpt and its MIDI transcription carry the original credit.
+
+Reference: 125 inferred notes, 21 pedal intervals, pitches 31–86.
+
+SHA-256 provenance (Silken Notes):
+Supplied MP3: cc62109766cb3508a063feb0f6c5e8a5ca0dcf0b573afb58e31d7989232467b9
+Bundled WAV: 0c3b52d1ac8034470f6354cf1a0fb12f06fe0989ebc98892311b085d6fca770e
+Bundled MIDI: 5979bfc69b68af0c9a2202e61e517da5f235602ebb6c01cbb4d312572d5f69dc
+
 MIDI and regression references
 
 PianoRain generated approximate MIDI transcriptions from the bundled excerpts
@@ -49,5 +64,5 @@ with 50% overlap and quarter/three-quarter stitching. MIDI uses 384 PPQ
 at 120 BPM. Note releases and pedal events clip to the excerpt duration.
 Model and reference implementation attribution: MODEL.txt.
 PianoRain dedicates any rights it holds in the generated MIDI and regression
-data under CC0 1.0. Each recording and excerpt retains its own license.
+data under CC0 1.0. The original licenses and attribution continue to apply.
 No endorsement by the artists or source projects is implied.

@@ -86,7 +86,7 @@ Imported audio, timelines, manifests and playback preferences stay private to th
 - Piano transcription is approximate, especially with noise, reverb or other instruments. Decoder differences can affect low-confidence notes.
 - Lilac/rose indicate note register, not hands. Tile lengths represent key duration, not pedal-extended sound.
 - No background playback, note editing, hand assignment, MIDI export/synthesis, video export or background microphone recording.
-- The bundled demos are 30-second openings of Chopin’s Prelude Op. 28 No. 20 and Joplin’s The Entertainer, with approximate generated MIDI. The excerpts preserve original source silence and fade out over the last 0.5 seconds.
+- The bundled demos are 30-second openings of Chopin’s Prelude Op. 28 No. 20, Sascha Ende’s Silken Notes, and Joplin’s The Entertainer, with approximate generated MIDI. The excerpts preserve original source silence and fade out over the last 0.5 seconds.
 
 ## Device checks
 

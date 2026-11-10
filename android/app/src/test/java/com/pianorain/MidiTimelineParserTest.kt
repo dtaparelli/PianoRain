@@ -10,6 +10,9 @@ import kotlin.math.abs
 
 class MidiTimelineParserTest {
     private val parser = MidiTimelineParser()
+    @Test fun silkenNotesMidiMatchesEveryReferenceNote() {
+        assertDemoReference("silken-notes", 125)
+    }
     @Test fun entertainerMidiMatchesEveryReferenceNote() {
         assertDemoReference("the-entertainer", 441)
     }

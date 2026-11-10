@@ -11,6 +11,8 @@ class SongRepository(private val context: Context) {
     val songs = listOf(
         Song("chopin-prelude20", "Prelude in C minor, Op. 28 No. 20 (excerpt)", "Frédéric Chopin · Ivan Ilic", 30_000_000L,
             "songs/chopin-prelude20/audio.wav", "songs/chopin-prelude20/notes.mid"),
+        Song("silken-notes", "Silken Notes (excerpt)", "Sascha Ende", 30_000_000L,
+            "songs/silken-notes/audio.wav", "songs/silken-notes/notes.mid"),
         Song("the-entertainer", "The Entertainer (excerpt)", "Scott Joplin · Kevin MacLeod", 30_000_000L,
             "songs/the-entertainer/audio.wav", "songs/the-entertainer/notes.mid"),
     )
