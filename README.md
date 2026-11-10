@@ -59,4 +59,4 @@ Filtering out false note detections and improving audio processing are possible 
 
 Original code and documentation use [Apache 2.0](LICENSE). The model uses CC BY 4.0; libraries retain their own licenses. See [third-party notices](THIRD_PARTY_NOTICES.md).
 
-The Aria demo uses CC0; the Chopin recording/excerpt uses CC BY 3.0. Generated MIDI and regression data use CC0 without replacing the recording’s license; see the [demo attribution](android/app/src/main/assets/licenses/DEMO.txt).
+The Chopin demo recording and excerpt use CC BY 3.0. The Entertainer uses CC BY 4.0. See the [demo attribution](android/app/src/main/assets/licenses/DEMO.txt) for sources and MIDI details.

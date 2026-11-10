@@ -30,7 +30,7 @@ Saved imported timeline ────────┤→ visible notes → Compose
 Audio → Media3 source position ─┘
 ```
 
-The bundled Open Goldberg Aria (CC0) and Chopin Prelude Op. 28 No. 20 (CC BY 3.0) excerpts use PCM WAV and generated MIDI transcriptions. Imported songs use a private audio copy and versioned JSON timeline.
+The bundled demos use PCM WAV and generated MIDI transcriptions. Imported songs use a private audio copy and versioned JSON timeline.
 
 ### Code map
 
@@ -86,7 +86,7 @@ Imported audio, timelines, manifests and playback preferences stay private to th
 - Piano transcription is approximate, especially with noise, reverb or other instruments. Decoder differences can affect low-confidence notes.
 - Lilac/rose indicate note register, not hands. Tile lengths represent key duration, not pedal-extended sound.
 - No background playback, note editing, hand assignment, MIDI export/synthesis, video export or background microphone recording.
-- The bundled demos are Aria (26.5 seconds, CC0) and Chopin Prelude Op. 28 No. 20 (30 seconds, CC BY 3.0), with approximate generated MIDI. Original source silence is preserved; the last 0.5 seconds fade out.
+- The bundled demos are 30-second openings of Chopin’s Prelude Op. 28 No. 20 and Joplin’s The Entertainer, with approximate generated MIDI. The excerpts preserve original source silence and fade out over the last 0.5 seconds.
 
 ## Device checks
 
@@ -107,4 +107,4 @@ Still to check on the current APK:
 - First-launch airplane-mode import, unsupported/protected formats and API 26–35 devices.
 - Wider AAC/MP3/WAV recordings, long-session memory/thermals and ten-minute imports.
 - Speaker/wired/Bluetooth sync, frame rate, rotation, background pause, seek previews and accessibility on the current build.
-- Play both public demos end to end, check perceptual note alignment and their fades, and seek through held chords and initial silence.
+- Play the bundled demos end to end, check perceptual note alignment and their fades, and seek through held chords and initial silence.

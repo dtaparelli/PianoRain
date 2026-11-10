@@ -1,41 +1,5 @@
 Public piano demos
 
-Johann Sebastian Bach: Goldberg Variations, BWV 988 — Aria.
-Performer: Kimiko Ishizaka, Open Goldberg Variations (2012).
-Composition: public domain.
-Recording: CC0 1.0 Universal Public Domain Dedication.
-Project: https://opengoldbergvariations.org/
-Recording/license page: https://commons.wikimedia.org/wiki/File:Goldberg_Variations_01_Aria.ogg
-Original audio: https://upload.wikimedia.org/wikipedia/commons/4/42/Goldberg_Variations_01_Aria.ogg
-License: https://creativecommons.org/publicdomain/zero/1.0/
-Full legal text: CC0-1.0.txt, included alongside this notice.
-
-PianoRain uses source time 0–26.5 seconds, preserving leading silence and speed.
-The final 0.5 seconds fade linearly to silence. Ogg Vorbis was decoded to stereo
-44.1 kHz PCM16 WAV. No normalization or musical time shift was applied.
-
-The accompanying notes.mid is an approximate transcription generated locally
-with the original float32 Note_pedal ONNX model, not a captured MIDI performance
-or a verified score. Preparation uses stereo averaging, scipy resample_poly
-(44.1 kHz → 16 kHz), PCM16 precision, ten-second windows with 50% overlap and
-reference quarter/three-quarter stitching. Note/pedal events clip to 26.5 s.
-MIDI export uses 384 PPQ and 500000 microseconds per quarter note.
-Model and reference implementation attribution: MODEL.txt.
-
-PianoRain dedicates any rights it holds in the excerpt edits, generated MIDI
-and accompanying public-demo regression data under CC0 1.0. These assets keep
-separate terms from the Apache-licensed app code. No endorsement is implied.
-
-SHA-256 provenance:
-Original Ogg: 70e465253efee94dada9e0f545b7eda68966d8744ba6d1bf64a2d081fc65a1f3
-Bundled WAV: 9e7f5aee935a345de848662173e0d37e2f90c9d9c9eaa7f672bec67f0b6d7fee
-Bundled MIDI: e6c85cbad568328b199fddf8ee2e57137b9333215c2ece70c5a77fb5ce54fb62
-
-Regression reference: 69 notes, 13 pedal intervals, MIDI pitches 47–83.
-The reference verifies export/parsing timing, not transcription accuracy.
-
-Second public demo: Chopin Prelude in C minor
-
 Frédéric Chopin: Prelude in C minor, Op. 28 No. 20 (also titled Funeral march).
 Performer: Ivan Ilic. Recording metadata: 2005.
 Source: Musopen, mirrored on Wikimedia Commons.
@@ -52,14 +16,38 @@ original speed, decoded to stereo 44.1 kHz PCM16 WAV; linear fade over the final
 0.5 seconds. No normalization or musical time shift. The recording/excerpt
 retains CC BY 3.0; it is not relicensed under Apache or CC0.
 
-Approximate MIDI generated locally using the same preprocessing, model and
-export settings described for Aria. Note/pedal events clip to 30 seconds.
-It is not a captured performance score. PianoRain dedicates any rights it holds
-in its generated MIDI and regression data under CC0, without changing the
-recording's license or attribution requirements. Model attribution: MODEL.txt.
 Reference: 134 inferred notes, 20 pedal intervals, pitches 24–88.
 
 SHA-256 provenance (Chopin):
 Original Ogg: 88def081ce1e14ac62bf27675e8885bbceb8b36ffc6cf1f4c5ab1b69f7dd5147
 Bundled WAV: 6e6b64af4bc9a6c64cf3966fb5ed95aa3f72eb8088f42b39f638302e3176631c
 Bundled MIDI: 9a66e88e2f8a872ba5f15f559df50f3ebd877c0b15862389eb267a86a4f23310
+
+Scott Joplin: The Entertainer.
+Recording: Kevin MacLeod (Incompetech), ISRC USUAN1900059.
+Composition: public domain. Recording and edited audio excerpt: CC BY 4.0.
+Recording/license page: https://incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1900059
+Original audio: https://incompetech.com/music/royalty-free/mp3-royaltyfree/The%20Entertainer.mp3
+License: https://creativecommons.org/licenses/by/4.0/
+Full terms: CC-BY-4.0.txt, included alongside this notice.
+PianoRain decoded the first 30 seconds to stereo 44.1 kHz PCM16 WAV and
+applied a 0.5-second linear fade at the end. Source timing and speed are preserved.
+
+Reference: 441 inferred notes, 42 pedal intervals, pitches 31–91.
+
+SHA-256 provenance (The Entertainer):
+Original MP3: c161b688f05ddd49d636bf24e3286488195a0060ad16455b2d0b3dca89954358
+Bundled WAV: 5464826a3879d2904013e8d7d80328c27f6bfb68f66ad8a5b3215c766ddf242f
+Bundled MIDI: 8f218edeb96ba9acb810cfd376574db454c66690c748099aedb22b44abce1e90
+
+MIDI and regression references
+
+PianoRain generated approximate MIDI transcriptions from the bundled excerpts
+using the float32 Note_pedal ONNX model. Preparation uses stereo averaging,
+SciPy polyphase resampling to 16 kHz, PCM16 precision, and ten-second windows
+with 50% overlap and quarter/three-quarter stitching. MIDI uses 384 PPQ
+at 120 BPM. Note releases and pedal events clip to the excerpt duration.
+Model and reference implementation attribution: MODEL.txt.
+PianoRain dedicates any rights it holds in the generated MIDI and regression
+data under CC0 1.0. Each recording and excerpt retains its own license.
+No endorsement by the artists or source projects is implied.

@@ -31,4 +31,4 @@ The original checkpoint is CC BY 4.0 according to its Zenodo record. The ONNX
 conversion preserves float32 weights and uses opset 17; it is not retrained or
 quantized. Full model attribution, changes and license text are in `../licenses/`
 and included in APK assets. See the root THIRD_PARTY_NOTICES.md.
-The model binary stays Git-ignored. The bundled demos use CC0 and CC BY 3.0 (see ../licenses/DEMO.txt); the public source repository excludes model binaries and APKs.
+The model binary stays Git-ignored. Demo terms are listed in ../licenses/DEMO.txt. The public source repository excludes model binaries and APKs.

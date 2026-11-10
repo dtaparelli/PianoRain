@@ -10,25 +10,12 @@ import kotlin.math.abs
 
 class MidiTimelineParserTest {
     private val parser = MidiTimelineParser()
-    @Test fun publicDemoMidiMatchesEveryReferenceNote() {
-        assertDemoReference("goldberg-aria", 69)
+    @Test fun entertainerMidiMatchesEveryReferenceNote() {
+        assertDemoReference("the-entertainer", 441)
     }
     @Test fun chordDemoMidiMatchesEveryReferenceNote() {
         assertDemoReference("chopin-prelude20", 134)
         val dense = demoNotes("chopin-prelude20")
-        val aria = demoNotes("goldberg-aria")
-        fun heldChordFraction(notes: List<com.pianorain.domain.NoteEvent>): Double {
-            val duration = notes.maxOf { it.endUs }
-            var chordSamples = 0
-            val sampleCount = (duration / 10_000).toInt()
-            repeat(sampleCount) { i ->
-                val time = i * 10_000L
-                if (notes.count { it.startUs <= time && time < it.endUs } >= 4) chordSamples++
-            }
-            return chordSamples.toDouble() / sampleCount
-        }
-        assertTrue("Second demo should contain substantially more held chords",
-            heldChordFraction(dense) > heldChordFraction(aria) * 2)
         val at = dense.maxBy { note -> dense.count { it.startUs <= note.startUs && note.startUs < it.endUs } }.startUs
         val held = dense.filter { it.startUs <= at && at < it.endUs }
         assertTrue(held.size >= 6)

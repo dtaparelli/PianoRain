@@ -1,6 +1,6 @@
 # Third-party notices
 
-PianoRain's original code is Apache 2.0. Dependencies and model weights retain their own terms. The Aria demo is CC0; the Chopin recording/excerpt is CC BY 3.0. See [NOTICE](NOTICE).
+PianoRain's original code is Apache 2.0. Dependencies and model weights retain their own terms. The Chopin recording and excerpt use CC BY 3.0. The Entertainer uses CC BY 4.0. See [NOTICE](NOTICE).
 
 ## Included in the APK
 
@@ -8,8 +8,8 @@ License documents are maintained in [assets/licenses](android/app/src/main/asset
 
 - `PIANORAIN.txt`: PianoRain copyright, demo attribution, imported-recording rights and full Apache 2.0 license.
 - `MODEL.txt`: model creator/source, CC BY 4.0 attribution, ONNX conversion details and adapted-code attribution/MIT terms.
-- `CC-BY-4.0.txt`: full model license.
-- `DEMO.txt`, `CC0-1.0.txt` and `CC-BY-3.0.txt`: Open Goldberg Aria and Ivan Ilic Chopin sources, credits, excerpt/transcription changes and full demo license terms.
+- `CC-BY-4.0.txt`: full model and demo license.
+- `DEMO.txt`, `CC0-1.0.txt` and `CC-BY-3.0.txt`: Demo sources, credits, excerpt and transcription details, and license terms for the Chopin recording and generated reference data.
 - `ANDROID-DEPENDENCIES.txt`: resolved runtime module inventory, Apache 2.0 terms and embedded artifact license text.
 - `ONNX-RUNTIME.txt`: ONNX Runtime 1.23.2 MIT license and its complete upstream third-party notices. The upstream notice bundle covers multiple build configurations; inclusion does not imply every listed component is in this arm64 APK.
 
