@@ -3,6 +3,8 @@
 An offline Android app that plays piano recordings with falling notes and a live keyboard.
 Record piano audio or import a file, wait for the local transcription to finish, then open it in the player. No server or account required.
 
+[Download the APK from GitHub Releases](https://github.com/dtaparelli/PianoRain/releases/latest) · Android 8.0 or later · ARM64
+
 ![Piano Rain playing the Chopin demo](docs/media/player.jpg)
 
 ## Features
