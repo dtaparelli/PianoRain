@@ -1,0 +1,6 @@
+repository: https://github.com/dtaparelli/pianorain
+metadata_sources:
+    - github
+images:
+    - ./docs/media/player.jpg
+    - ./docs/media/home.jpg

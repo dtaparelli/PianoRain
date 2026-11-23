@@ -13,3 +13,4 @@ outputs/
 
 # Model weights are provisioned locally
 /android/app/src/main/assets/models/*.onnx
+.env
